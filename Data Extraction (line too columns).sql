@@ -21,8 +21,8 @@ select
 		then concat(split_part(name, '·', 1), '·',split_part(name, '·', 2),'·', 'N bedroom' ,'·',split_part(name, '·', 3),'·',split_part(name, '·', 4))
 		else name
 	end as add_num_bedroom,
-	CASE
-		when (((split_part(split_part(name,'bedroom',2),'bed',2)='')) AND split_part(split_part(name,'Studio',2),'bed',2)='')
+	case
+		when (((split_part(split_part(name,'bedroom',2),'bed',2)='')) and split_part(split_part(name,'Studio',2),'bed',2)='')
 		then concat(split_part(name, '·', 1), '·',split_part(name, '·', 2), '·',split_part(name, '·', 3), '·', ' N bed ' , '·',split_part(name, '·', 4))
 		else name
 	end as add_num_bed
@@ -48,11 +48,11 @@ update
 	listings_thes
 set 
 	final_name = case
-					when split_part(name, ' ★', 2) != ''
-					then name
-					when split_part(name, ' ★', 2) = ''
-					then trim(trailing '·' from concat(split_part(name, '·', 1),'· ★null ·', split_part(name, '·', 2),'·', split_part(name, '·', 3),'·', split_part(name, '·', 4), split_part(name, '·', 5)))
-				 end
+			     when split_part(name, ' ★', 2) != ''
+			     then name
+			     when split_part(name, ' ★', 2) = ''
+			     then trim(trailing '·' from concat(split_part(name, '·', 1),'· ★null ·', split_part(name, '·', 2),'·', split_part(name, '·', 3),'·', split_part(name, '·', 4), split_part(name, '·', 5)))
+		    end
 ;
 
 --2
@@ -64,10 +64,10 @@ update
 	listings_thes
 set 
 	final_name = case
-					when split_part(final_name,'bedroom',2)='' and split_part(final_name,'Studio',2)=''
-					then concat(split_part(final_name, '·', 1), '·', split_part(final_name, '·', 2),'·', ' N bedroom ' ,'·', split_part(final_name, '·', 3),'·', split_part(final_name, '·', 4))
-					else final_name
-				 end
+			    when split_part(final_name,'bedroom',2)='' and split_part(final_name,'Studio',2)=''
+			    then concat(split_part(final_name, '·', 1), '·', split_part(final_name, '·', 2),'·', ' N bedroom ' ,'·', split_part(final_name, '·', 3),'·', split_part(final_name, '·', 4))
+			    else final_name
+		     end
 ;
 	
 --3
@@ -79,10 +79,10 @@ update
 	listings_thes
 set 
 	final_name = case
-					when (((split_part(split_part(final_name,'bedroom',2),'bed',2)='')) and split_part(split_part(final_name,'Studio',2),'bed',2)='')
-					then CONCAT(split_part(final_name, '·', 1), '·', split_part(final_name, '·', 2), '·', split_part(final_name, '·', 3), '·', ' N bed ' , '·', split_part(final_name, '·', 4))
-					else final_name
-				 end
+			    when (((split_part(split_part(final_name,'bedroom',2),'bed',2)='')) and split_part(split_part(final_name,'Studio',2),'bed',2)='')
+			    then CONCAT(split_part(final_name, '·', 1), '·', split_part(final_name, '·', 2), '·', split_part(final_name, '·', 3), '·', ' N bed ' , '·', split_part(final_name, '·', 4))
+			    else final_name
+		      end
 ;
 
 /*
@@ -110,9 +110,9 @@ select
 	case
 		when split_part(final_name, '·', 3) != ''
 		then case 
-				when (split_part(split_part(split_part(final_name, '·', 3),'·', 1), 'bedroom', 1))!=''
-				then trim(split_part(split_part(split_part(final_name, '·', 3),'·', 1), 'bedroom', 1))
-				end
+			     when (split_part(split_part(split_part(final_name, '·', 3),'·', 1), 'bedroom', 1))!=''
+			     then trim(split_part(split_part(split_part(final_name, '·', 3),'·', 1), 'bedroom', 1))
+		      end
 		else 'Studio'
 	end as Bedrooms,
 	case
